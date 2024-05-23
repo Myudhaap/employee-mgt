@@ -1,1 +1,18 @@
-<p>layout-auth works!</p>
+<div class="relative w-screen h-screen max-h-screen overflow-hidden bg-white sm:bg-gray-50">
+    <div class="absolute -bottom-32 w-full flex justify-center items-center -z-10">
+        <img src="assets/background/sapiens.svg" alt="Background image" class=" w-2/4 aspect-square"/>
+    </div>
+    
+    <header class="fixed flex justify-between p-4">
+        <div class="flex gap-2 items-center font-bold text-primary font-monserrat">
+            <img src="assets/fav/favicon-32x32.png" alt="">
+            <span>Employee Management</span>
+        </div>
+    </header>
+
+    <div class="flex justify-center items-center w-full h-screen max-h-screen z-50">
+        <router-outlet></router-outlet>
+    </div>
+
+</div>
+
