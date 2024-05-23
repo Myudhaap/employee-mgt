@@ -1,13 +1,20 @@
+<p-toast/>
+<button pButton (click)="showToast()" label="Show Toast"></button>
 <div class="min-w-96 max-w-96 p-4 sm:bg-white shadow-none sm:shadow-md rounded-md">
     <div class="text-center w-full mb-4">
         <h1 class="font-semibold">Admin Login</h1>
         <p class="text-black/50 text-[.625rem]">Hello, enter your details here to login into the dashboard.</p>
     </div>
 
-    <form class="flex flex-col gap-2" [formGroup]="loginForm">
+    <form class="flex flex-col gap-2" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="flex flex-col gap-1">
             <label for="username" class="text-xs">Username</label>
-            <input class="bg-gray-50 border border-gray-200 text-xs p-2 peer placeholder:text-xs rounded" placeholder="Enter Username..." type="text" formControlName="username">
+            <input
+            id="username"
+             class="bg-gray-50 border border-gray-200 text-xs p-2 peer placeholder:text-xs rounded outline-primary" 
+             [ngClass]="{'outline-red-500 border-red-500 bg-red-200': loginForm.controls['username'].invalid && (loginForm.controls['username'].touched || loginForm.controls['username'].dirty)}"
+             placeholder="Enter Username..." type="text" formControlName="username"
+            >
             <div class="text-red-500 text-[.625rem]" *ngIf="loginForm.controls['username'].invalid && (loginForm.controls['username'].touched || loginForm.controls['username'].dirty)">
                 <span *ngIf="loginForm.controls['username'].errors?.['required']">Username required</span>
             </div>
@@ -15,8 +22,13 @@
         <div class="flex flex-col gap-1">
             <label for="password" class="text-xs">Password</label>
             <div class="relative flex justify-center items-center">
-                <input class="bg-gray-50 border flex-1 border-gray-200 text-xs p-2 peer placeholder:text-xs rounded" placeholder="Enter Password..." type="password" formControlName="password">
-                <i class="pi pi-eye absolute right-2"></i>
+                <input
+                id="password"
+                 class="bg-gray-50 border flex-1 border-gray-200 text-xs p-2 peer placeholder:text-xs rounded outline-primary" 
+                 [ngClass]="{'outline-red-500 border-red-500 bg-red-200': loginForm.controls['password'].invalid && (loginForm.controls['password'].touched || loginForm.controls['password'].dirty)}"
+                 placeholder="Enter Password..." [type]="isPasswordShow ? 'text' : 'password'" formControlName="password"
+                >
+                <i class="absolute right-2 pi" (click)="onToggleShowPassword()" [ngClass]="{'pi-eye': isPasswordShow, 'pi-eye-slash': !isPasswordShow}"></i>
             </div>
             <div class="text-red-500 text-[.625rem]" *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].touched || loginForm.controls['password'].dirty)">
                 <span *ngIf="loginForm.controls['password'].errors?.['required']">Password required</span>
@@ -25,7 +37,7 @@
                 Forgot password?
             </a>
         </div>
-        <button class="rounded-md bg-primary text-white font-medium text-sm p-2 hover:bg-primary/90 transition-colors">
+        <button type="submit" [disabled]="loginForm.invalid" class="rounded-md bg-primary text-white font-medium text-sm p-2 disabled:bg-primary/70 disabled:cursor-not-allowed hover:bg-primary/90 transition-colors">
             Sign In
         </button>
     </form>
