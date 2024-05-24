@@ -1,3 +1,36 @@
-<p>layout-main works!</p>
-<router-outlet></router-outlet>
+ <aside id="logo-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+    <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+       <a routerLink="/" class="flex items-center ps-2.5 mb-5">
+          <img src="assets/fav/favicon-32x32.png" class="h-6 me-1 sm:h-7" alt="Flowbite Logo" />
+          <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Mployee</span>
+       </a>
 
+       <div class="flex flex-col gap-4">
+
+          <ul class="space-y-2 font-medium">
+             <li>
+                <a routerLink="/" routerLinkActive="bg-gray-100" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                   <i routerLinkActive="text-black-900" class="pi pi-gauge text-xl text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white group-active:text-black-900"></i>
+                   <span class="ms-3">Dashboard</span>
+                </a>
+             </li>
+          </ul>
+          
+          <div class="flex flex-col gap-2">
+             <h2 class="text-gray-700">Master</h2>
+             <ul class="space-y-2 font-medium">
+               <li>
+                  <a routerLink="/employees" routerLinkActive="bg-gray-100" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                     <i routerLinkActive="text-black-900" class="pi pi-briefcase text-xl text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white group-active:text-black-900"></i>
+                     <span class="ms-3">Master Employee</span>
+                  </a>
+               </li>
+             </ul>
+          </div>
+       </div>
+    </div>
+ </aside>
+ 
+ <div class="p-4 sm:ml-64">
+    <router-outlet></router-outlet>
+ </div>
