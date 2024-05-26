@@ -3,6 +3,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { groups } from '../../../data/data';
 import { invalidDateValidator } from '../../../core/validators/invalidDate';
 import { invalidGroupValidator } from '../../../core/validators/invalidGroup';
+import { Store } from '@ngrx/store';
+import { addEmployee } from '../../../states/employee/employee.action';
+import { Observable } from 'rxjs';
+import { selectError } from '../../../states/auth/auth.selector';
+import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add',
@@ -13,9 +19,13 @@ export class AddComponent{
   employeeForm!: FormGroup
   groups: string[] = [...groups]
   @ViewChild('dropdown') dropdown!: ElementRef
+  error$!: Observable<string | null>
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private store: Store,
+    private messageService: MessageService,
+    private router: Router
   ){
     this.employeeForm = this.formBuilder.group({
       username: ['', Validators.required],
@@ -28,6 +38,8 @@ export class AddComponent{
       group: ['', invalidGroupValidator()],
       description: ['', Validators.required]
     })
+
+    this.error$ = this.store.select(selectError)
   }
 
   ngOnInit(): void {
@@ -51,7 +63,15 @@ export class AddComponent{
 
   onSubmit(){
     const data = this.employeeForm.value
-    console.log(data)
+    this.store.dispatch(addEmployee({employee: data}))
+
+    this.error$.subscribe(err => {
+      if(err){
+        return this.messageService.add({ severity: 'error', summary: 'Error', detail: err });
+      }else{
+        return this.router.navigate(['/employees'])
+      }
+    })
   }
 
   onShowDropdown(event: MouseEvent){

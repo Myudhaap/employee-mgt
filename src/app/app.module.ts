@@ -10,6 +10,8 @@ import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { EMployeeReducer } from "./states/employee/employee.reducer";
 import { EmployeeEffect } from "./states/employee/employee.effect";
+import { ToastModule } from "primeng/toast";
+import { MessageService } from "primeng/api";
 
 @NgModule({
     declarations: [AppComponent],
@@ -17,13 +19,15 @@ import { EmployeeEffect } from "./states/employee/employee.effect";
         RouterOutlet,
         BrowserModule,
         BrowserAnimationsModule,
+        ToastModule
     ],
     providers: [
         provideRouter(routes),
         provideStore(),
         provideState({name: 'auth', reducer: AuthReducer}),
         provideState({name: 'employee', reducer: EMployeeReducer}),
-        provideEffects([AuthEffect, EmployeeEffect])
+        provideEffects([AuthEffect, EmployeeEffect]),
+        MessageService
     ],
     bootstrap: [AppComponent]
 })

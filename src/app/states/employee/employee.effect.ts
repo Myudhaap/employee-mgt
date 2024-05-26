@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { EmployeeService } from "../../services/employee.service";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { getAllEmployee, getAllEmployeeFailure, getAllEmployeeSuccess, getByIdEmployee, getByIdEmployeeFailure, getByIdEmployeeSuccess } from "./employee.action";
+import { addEmployee, addEmployeeFailure, addEmployeeSuccess, getAllEmployee, getAllEmployeeFailure, getAllEmployeeSuccess, getByIdEmployee, getByIdEmployeeFailure, getByIdEmployeeSuccess } from "./employee.action";
 import { catchError, map, of, switchMap } from "rxjs";
 
 @Injectable()
@@ -33,6 +33,20 @@ export class EmployeeEffect{
                     map(res => getByIdEmployeeSuccess({employee: res})),
                     catchError((err: {message: string}) => of(
                         getByIdEmployeeFailure({errorMessage: err.message})
+                    ))
+                )
+            )
+        )
+    )
+
+    add$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(addEmployee),
+            switchMap(action => 
+                this.employeeService.addEmployee(action.employee).pipe(
+                    map(res => addEmployeeSuccess({employees: res})),
+                    catchError((err: {message: string}) => of(
+                        addEmployeeFailure({errorMessage: err.message})
                     ))
                 )
             )

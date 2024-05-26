@@ -6,8 +6,10 @@ import { selectEmployeeError, selectEmployees, selectHistoryEmployee } from '../
 import { getAllEmployee } from '../../states/employee/employee.action';
 import { Paginator } from 'primeng/paginator';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MessageService } from 'primeng/api';
+import { MessageService, SortEvent } from 'primeng/api';
 import { Router } from '@angular/router';
+import { Table } from 'primeng/table';
+import { sort } from '../../../../type';
 
 @Component({
   selector: 'app-employees',
@@ -18,13 +20,15 @@ export class EmployeesComponent {
   employees$!: Observable<IEmployees | null>
   error$!: Observable<string | null>
   history$!: Observable<any>
+  sort!: sort | null
 
-  @ViewChild('paginator') paginator: Paginator | undefined
+  @ViewChild('paginator') paginator!: Paginator | undefined
+  @ViewChild('employeeTable') employeeTable!: Table
   filterForm!: FormGroup
 
   totalRecords: number = 0
-  rows: number = 5
-  page: number = 0
+  rows!: number
+  page!: number
   employees!: IEmployee[]
   loading: boolean = true;
 
@@ -45,12 +49,24 @@ export class EmployeesComponent {
         lastName: [res ? res.params.lastName : '']
       })
 
+      
       this.page = res ? res.page : 0
       this.rows = res ? res.perPage : 5
+      this.sort = res ? res.params.sort : null
     })
-    
+    this.fetchEmployee(this.page, this.rows, {...this.filterForm.value, sort: this.sort})    
+  }
 
-    this.fetchEmployee(this.page, this.rows, this.filterForm.value)
+  ngOnInit(): void {
+    this.filterForm.get('username')?.valueChanges.subscribe(res => {
+      console.log(res)
+    })
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.paginator?.changePage(this.page);
+    }, 0);
   }
 
   fetchEmployee(page: number, perPage: number, params: any){
@@ -68,15 +84,11 @@ export class EmployeesComponent {
   }
 
   onPageChange(event: any){
-    this.fetchEmployee(event.page, event.rows, this.filterForm.value)
+    this.fetchEmployee(event.page, event.rows, {...this.filterForm.value, sort: this.sort})
     this.page = event.page
   }
 
-  resetPaginator(){
-    this.paginator?.changePage(0)
-  }
-
-  async onSubmit(){
+  onSubmit(){
     const data = this.filterForm.value
     this.page = 0
     this.fetchEmployee(this.page, this.rows, data)
@@ -96,5 +108,19 @@ export class EmployeesComponent {
 
   onSelect(value: string){
     this.router.navigate([`/employees/${value}`])
+  }
+
+  sortData(event: SortEvent){
+    const field = event.field?.toString() || ''
+    const order = event.order == 1 ? 'asc' : 'desc'
+
+    this.sort = {
+      field,
+      order
+    }
+
+    console.log(this.filterForm.value)
+
+    this.fetchEmployee(this.page, this.rows,{...this.filterForm.value, sort: this.sort})
   }
 }

@@ -9,12 +9,13 @@ export interface IEmployee{
     status: string
     group: string
     description: string
+    [key: string]: any
 }
 
 export interface IEmployees{
     employees: IEmployee[]
-    total: number
-    page: number
-    perPage: number
-    totalPages: number
+    total?: number
+    page?: number
+    perPage?: number
+    totalPages?: number
 }

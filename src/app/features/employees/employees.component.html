@@ -24,7 +24,7 @@
 
     </form>
 </div>
-<p-table [value]="employees" [tableStyle]="{'min-width': '60rem'}">
+<p-table #employeeTable stateStorage="session" stateKey="statedemo-session" [value]="employees" [tableStyle]="{'min-width': '60rem'}" [customSort]="true" (sortFunction)="sortData($event)">
     <ng-template pTemplate="header">
         <tr>
             <th>

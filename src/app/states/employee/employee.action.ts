@@ -30,3 +30,18 @@ export const getByIdEmployeeFailure = createAction(
     "[Employee Detail] Get by id failure",
     props<{errorMessage: string}>()
 )
+
+export const addEmployee = createAction(
+    "[Employee Add] Add Employee",
+    props<{employee: IEmployee}>()
+)
+
+export const addEmployeeSuccess = createAction(
+    "[Employee Add] Add Employee Success",
+    props<{employees: IEmployees}>()
+)
+
+export const addEmployeeFailure = createAction(
+    "[Employee Add] Add Employee Failure",
+    props<{errorMessage: string}>()
+)

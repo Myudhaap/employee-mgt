@@ -9,5 +9,6 @@ import { initFlowbite } from 'flowbite';
 export class AppComponent {
   ngOnInit(): void {
     initFlowbite()
+    sessionStorage.clear()
   }
 }
