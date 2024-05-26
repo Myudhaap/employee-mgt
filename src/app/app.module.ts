@@ -8,6 +8,8 @@ import { provideEffects } from "@ngrx/effects";
 import { AuthEffect } from "./states/auth/auth.effect";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { EMployeeReducer } from "./states/employee/employee.reducer";
+import { EmployeeEffect } from "./states/employee/employee.effect";
 
 @NgModule({
     declarations: [AppComponent],
@@ -20,7 +22,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
         provideRouter(routes),
         provideStore(),
         provideState({name: 'auth', reducer: AuthReducer}),
-        provideEffects([AuthEffect])
+        provideState({name: 'employee', reducer: EMployeeReducer}),
+        provideEffects([AuthEffect, EmployeeEffect])
     ],
     bootstrap: [AppComponent]
 })

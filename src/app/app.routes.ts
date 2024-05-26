@@ -9,8 +9,18 @@ export const routes: Routes = [
         path: '',
         canActivate: [AuthGuardService],
         component: LayoutMainComponent,
-        loadChildren: () => 
-            import("./features/dashboard/dashboard.module").then(m => m.DashboardModule)
+        children: [
+            {
+                path: "",
+                loadChildren: () => 
+                    import("./features/dashboard/dashboard.module").then(m => m.DashboardModule)
+            },
+            {
+                path: "employees",
+                loadChildren: () =>
+                    import("./features/employees/employees.module").then(m => m.EmployeesModule)
+            }
+        ]
     },
     {
         path: "auth",
