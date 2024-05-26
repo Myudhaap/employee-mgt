@@ -7,7 +7,7 @@ export interface AuthState{
 }
 
 export const initialAuthState: AuthState = {
-    username: 'admin',
+    username: '',
     error: null
 }
 

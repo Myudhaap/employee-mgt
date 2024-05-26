@@ -7,7 +7,7 @@ export const data: any = {
     }
 }
 
-export let employees: IEmployee[] = [
+export let employeesDummy: any = [
     {
       id: "39c41ef5-ac80-40c8-b264-71d841953dc0",
       username: "Garnet56",
@@ -1210,4 +1210,21 @@ export let employees: IEmployee[] = [
     }
   ]
 
-  
+  export let employees: IEmployee[] = employeesDummy.map((val: any) => ({
+    ...val,
+    basicSalary: parseInt(val.basicSalary),
+    status: val.status ? 'Active' : 'Deactive'
+  }))
+
+  export const groups: string[] = [
+    '.Net Developer', 
+    'Golang Developer', 
+    'Laravel Developer',
+    'Codeigniter Developer',
+    'React Developer',
+    'React Native Developer',
+    'Kotlin Developer',
+    'Swift Developer',
+    'Vue Developer',
+    'Java Developer'
+  ]

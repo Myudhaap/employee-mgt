@@ -18,9 +18,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { DetailComponent } from './detail/detail.component';
+import { AddComponent } from './add/add.component';
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
-  declarations: [EmployeesComponent, DetailComponent],
+  declarations: [EmployeesComponent, DetailComponent, AddComponent],
   imports: [
     TruncatePipe,
     ConvertDatePipe,
@@ -36,7 +38,8 @@ import { DetailComponent } from './detail/detail.component';
     MultiSelectModule, 
     DropdownModule,
     ReactiveFormsModule,
-    ToastModule
+    ToastModule,
+    CalendarModule
   ],
   providers: [MessageService]
 })

@@ -6,16 +6,14 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class CurrencyRupiahPipe implements PipeTransform {
 
-  transform(number: string, showPrefix: boolean = true): string {
+  transform(number: number, showPrefix: boolean = true): string {
     if(number == null) return ''
-
-    const value = parseInt(number)
 
     const formatVal = new Intl.NumberFormat('id-ID',{
       style: 'currency',
       currency: 'IDR',
       minimumFractionDigits: 2
-    }).format(value)
+    }).format(number)
 
     return showPrefix ? formatVal : formatVal.replace("Rp", "");
   }

@@ -5,8 +5,8 @@ export interface IEmployee{
     lastName: string
     email: string
     birthDate: string
-    basicSalary: string
-    status: boolean
+    basicSalary: number
+    status: string
     group: string
     description: string
 }

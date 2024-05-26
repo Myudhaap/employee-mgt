@@ -72,7 +72,7 @@
             <td style="min-width: 10rem;">{{ employee.birthDate | convertDate }}</td>
             <td style="min-width: 10rem;">{{ employee.basicSalary | currencyRupiah }}</td>
             <td style="min-width: 10rem; text-align: center;" class="text-white text-xs">
-                <span class="p-1 px-4 rounded-full" [ngClass]="{'bg-red-300': !employee.status, 'bg-green-300': employee.status}">{{ employee.status ? 'Active' : 'Not Active'}}</span>
+                <span class="p-1 px-4 rounded-full" [ngClass]="{'bg-red-300': employee.status == 'Deactive', 'bg-green-300': employee.status == 'Active'}">{{ employee.status }}</span>
             </td>
             <td style="min-width: 10rem;">{{ employee.group }}</td>   
             <td style="min-width: 10rem;">{{ employee.description | truncate }}</td>
