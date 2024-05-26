@@ -20,26 +20,27 @@ export class EmployeeService {
       const start = page * perPage
       const end = start + perPage
 
-      let items: IEmployee[] = [...employees];
+      let items: IEmployee[] = [...this.employeesData];
+      let sortedItems: IEmployee[] = [...items];
       
       if(params?.username != null){
-        items = this.employeesData.filter((val: IEmployee) => val.username.toLowerCase().includes(params.username.toLowerCase()))
+        sortedItems = sortedItems.filter((val: IEmployee) => val.username.toLowerCase().includes(params.username.toLowerCase()))
       }
       
       if(params?.firstName != ''){
-        items = this.employeesData.filter((val: IEmployee) => val.firstName.toLowerCase().includes(params.firstName.toLowerCase()))
+        sortedItems = sortedItems.filter((val: IEmployee) => val.firstName.toLowerCase().includes(params.firstName.toLowerCase()))
       }
       
       if(params?.lastName != ''){
-        items = this.employeesData.filter((val: IEmployee) => val.lastName.toLowerCase().includes(params.lastName.toLowerCase()))
+        sortedItems = sortedItems.filter((val: IEmployee) => val.lastName.toLowerCase().includes(params.lastName.toLowerCase()))
       }
       
       const res:IEmployees = {
-        employees: items.slice(start, end),
+        employees: sortedItems.slice(start, end),
         page: page,
         perPage: perPage,
-        total: items.length,
-        totalPages: Math.ceil(items.length / perPage)
+        total: sortedItems.length,
+        totalPages: Math.ceil(sortedItems.length / perPage)
       }
 
       return of({
@@ -53,6 +54,17 @@ export class EmployeeService {
 
     }catch(e){
       return throwError(new Error("Server Error"))
+    }
+  }
+
+  getById(id: string): Observable<IEmployee>{
+    try{
+      const res = this.employeesData.find(val => val.id == id)
+
+      if(!res) return throwError(new Error("Employee not found"))
+      return of(res)
+    }catch(e){
+      return throwError(new Error("Server error"))
     }
   }
 }

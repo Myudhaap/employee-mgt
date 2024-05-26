@@ -27,16 +27,16 @@
 <p-table [value]="employees" [tableStyle]="{'min-width': '60rem'}">
     <ng-template pTemplate="header">
         <tr>
-            <th style="width: fit-content;">
+            <th>
                 No
             </th>
-            <th pSortableColumn="username" style="width:fit-content">
+            <th pSortableColumn="username">
                 Username <p-sortIcon field="username" />
             </th>
-            <th pSortableColumn="firstName" style="width:fit-content">
+            <th pSortableColumn="firstName">
                 First Name <p-sortIcon field="firstName" />
             </th>
-            <th pSortableColumn="lastName" style="width:fit-content">
+            <th pSortableColumn="lastName" style="width:50rem">
                 Last Name <p-sortIcon field="lastName" />
             </th>
             <th pSortableColumn="email" style="width:fit-content">
@@ -48,7 +48,7 @@
             <th pSortableColumn="basicSalary" style="width:fit-content">
                 Basic Salary <p-sortIcon field="basicSalary" />
             </th>
-            <th pSortableColumn="status" style="width:fit-content">
+            <th pSortableColumn="status" style="width:fit-content; text-align: center;">
                 Status <p-sortIcon field="status" />
             </th>
             <th pSortableColumn="group" style="width:fit-content">
@@ -63,24 +63,26 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-employee let-rowIndex="rowIndex">
-        <tr>
+        <tr class="row-hover cursor-pointer" (click)="onSelect(employee.id)">
             <td>{{ rowIndex + (page * rows) + 1 }}</td>
             <td>{{ employee.username }}</td>
-            <td>{{ employee.firstName }}</td>
-            <td>{{ employee.lastName }}</td>
-            <td>{{ employee.email }}</td>
-            <td>{{ employee.birthDate | convertDate }}</td>
-            <td>{{ employee.basicSalary | currencyRupiah }}</td>
-            <td>{{ employee.status }}</td>
-            <td>{{ employee.group }}</td>   
-            <td>{{ employee.description | truncate }}</td>
+            <td style="min-width: 10rem;">{{ employee.firstName }}</td>
+            <td style="min-width: 10rem;">{{ employee.lastName }}</td>
+            <td style="min-width: 10rem;">{{ employee.email }}</td>
+            <td style="min-width: 10rem;">{{ employee.birthDate | convertDate }}</td>
+            <td style="min-width: 10rem;">{{ employee.basicSalary | currencyRupiah }}</td>
+            <td style="min-width: 10rem; text-align: center;" class="text-white text-xs">
+                <span class="p-1 px-4 rounded-full" [ngClass]="{'bg-red-300': !employee.status, 'bg-green-300': employee.status}">{{ employee.status ? 'Active' : 'Not Active'}}</span>
+            </td>
+            <td style="min-width: 10rem;">{{ employee.group }}</td>   
+            <td style="min-width: 10rem;">{{ employee.description | truncate }}</td>
             <td>
                 <div class="flex gap-2">
-                    <button (click)="onEdit(employee)" class="flex items-center gap-2 p-2 font-semibold bg-primary text-white hover:bg-primary/70 transition-colors duration-200" style="border-radius: .25rem;">
+                    <button (click)="onEdit($event, employee)" class="flex items-center gap-2 p-2 font-semibold bg-primary text-white hover:bg-primary/70 transition-colors duration-200" style="border-radius: .25rem;">
                         <i class="pi pi-pencil"></i><span>Edit</span>
                     </button>
 
-                    <button (click)="onDelete(employee)" class="flex items-center gap-2 p-2 font-semibold bg-red-600 text-white hover:bg-red-600/70 transition-colors duration-200" style="border-radius: .25rem;">
+                    <button (click)="onDelete($event, employee)" class="flex items-center gap-2 p-2 font-semibold bg-red-600 text-white hover:bg-red-600/70 transition-colors duration-200" style="border-radius: .25rem;">
                         <i class="pi pi-trash"></i><span>Delete</span>
                     </button>
                 </div>
@@ -89,7 +91,7 @@
     </ng-template>
     <ng-template pTemplate="emptymessage">
         <tr>
-            <td colspan="10" class="text-center">No Employees found.</td>
+            <td colspan="11" style="text-align: center;">No Employees found.</td>
         </tr>
     </ng-template>
 </p-table>

@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { IEmployees } from "../../core/models/employee.interface";
+import { IEmployee, IEmployees } from "../../core/models/employee.interface";
 
 export const getAllEmployee = createAction(
     "[Employee] Get All",
@@ -13,5 +13,20 @@ export const getAllEmployeeSuccess = createAction(
 
 export const getAllEmployeeFailure = createAction(
     "[Employee] Get All Success",
+    props<{errorMessage: string}>()
+)
+
+export const getByIdEmployee = createAction(
+    "[Employee Detail] Get by id",
+    props<{id: string}>()
+)
+
+export const getByIdEmployeeSuccess = createAction(
+    "[Employee Detail] Get by id success",
+    props<{employee: IEmployee}>()
+)
+
+export const getByIdEmployeeFailure = createAction(
+    "[Employee Detail] Get by id failure",
     props<{errorMessage: string}>()
 )

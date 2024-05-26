@@ -7,6 +7,7 @@ import { getAllEmployee } from '../../states/employee/employee.action';
 import { Paginator } from 'primeng/paginator';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-employees',
@@ -30,7 +31,8 @@ export class EmployeesComponent {
   constructor(
     private store: Store,
     private fb: FormBuilder,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
   ){
     this.employees$ = this.store.select(selectEmployees)
     this.error$ = this.store.select(selectEmployeeError)
@@ -80,11 +82,19 @@ export class EmployeesComponent {
     this.fetchEmployee(this.page, this.rows, data)
   }
 
-  onEdit(value: IEmployee){
+  onEdit(event: MouseEvent, value: IEmployee){
+    event.stopPropagation()
+
     this.messageService.add({ severity: 'warn', summary: 'Edited', detail: `Content with username: ${value.username} edited.` });
   }
 
-  onDelete(value: IEmployee){
+  onDelete(event: MouseEvent, value: IEmployee){
+    event.stopPropagation()
+
     this.messageService.add({ severity: 'error', summary: 'Deleted', detail: `Content with username: ${value.username} deleted.` });
+  }
+
+  onSelect(value: string){
+    this.router.navigate([`/employees/${value}`])
   }
 }

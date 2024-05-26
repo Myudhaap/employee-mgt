@@ -1,0 +1,94 @@
+<div *ngIf="employee">
+    <h2 class="text-2xl font-semibold"><a routerLink="/employees" class="hover:text-blue-500">Employees</a> > {{employee.username}}</h2>
+
+    <div class="flex flex-col mt-8 gap-4">
+        <div class="flex flex-col gap-2">
+            <span class="font-semibold">
+                Username:
+            </span>
+            <p class="bg-gray-100 p-2 rounded-md">
+                {{employee.username}}
+            </p>
+        </div>
+        <div class="flex flex-col gap-2">
+            <span class="font-semibold">
+                First Name:
+            </span>
+            <p class="bg-gray-100 p-2 rounded-md">
+                {{employee.firstName}}
+            </p>
+        </div>
+        <div class="flex flex-col gap-2">
+            <span class="font-semibold">
+                First Name:
+            </span>
+            <p class="bg-gray-100 p-2 rounded-md">
+                {{employee.firstName}}
+            </p>
+        </div>
+        <div class="flex flex-col gap-2">
+            <span class="font-semibold">
+                Last Name:
+            </span>
+            <p class="bg-gray-100 p-2 rounded-md">
+                {{employee.lastName}}
+            </p>
+        </div>
+        <div class="flex flex-col gap-2">
+            <span class="font-semibold">
+                Email:
+            </span>
+            <p class="bg-gray-100 p-2 rounded-md">
+                {{employee.email}}
+            </p>
+        </div>
+        <div class="flex flex-col gap-2">
+            <span class="font-semibold">
+                Birth Date:
+            </span>
+            <p class="bg-gray-100 p-2 rounded-md">
+                {{employee.birthDate | convertDate }}
+            </p>
+        </div>
+        <div class="flex flex-col gap-2">
+            <span class="font-semibold">
+                Basic Salary:
+            </span>
+            <p class="bg-gray-100 p-2 rounded-md">
+                {{employee.basicSalary | currencyRupiah }}
+            </p>
+        </div>
+        <div class="flex flex-col gap-2">
+            <span class="font-semibold">
+                Status:
+            </span>
+            <p class="bg-gray-100 p-2 rounded-md">
+                {{employee.status ? 'Active' : 'Not Acitve'}}
+            </p>
+        </div>
+        <div class="flex flex-col gap-2">
+            <span class="font-semibold">
+                Group:
+            </span>
+            <p class="bg-gray-100 p-2 rounded-md">
+                {{employee.group }}
+            </p>
+        </div>
+        <div class="flex flex-col gap-2">
+            <span class="font-semibold">
+                Description:
+            </span>
+            <p class="bg-gray-100 p-2 rounded-md">
+                {{employee.description }}
+            </p>
+        </div>
+
+        <button class="bg-primary text-white font-semibold p-2 hover:bg-primary/70 transition-colors duration-150" style="border-radius: .25rem;" (click)="onOk()">Ok</button>
+    </div>
+</div>
+
+<div *ngIf="!employee" class="flex justify-center items-center min-h-screen">
+    <h2>
+        Employee Not Found...
+    </h2>
+</div>

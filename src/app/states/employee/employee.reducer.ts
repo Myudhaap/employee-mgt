@@ -1,15 +1,17 @@
 import { createReducer, on } from "@ngrx/store";
-import { IEmployees } from "../../core/models/employee.interface";
-import { getAllEmployeeFailure, getAllEmployeeSuccess } from "./employee.action";
+import { IEmployee, IEmployees } from "../../core/models/employee.interface";
+import { getAllEmployeeFailure, getAllEmployeeSuccess, getByIdEmployeeFailure, getByIdEmployeeSuccess } from "./employee.action";
 
 export interface EmployeeState{
     employees: IEmployees | null,
+    employee: IEmployee | null,
     error: string | null,
     history: any | null
 }
 
 export const initialEmployeeState: EmployeeState = {
     employees: null,
+    employee: null,
     error: null,
     history: null
 }
@@ -24,6 +26,16 @@ export const EMployeeReducer = createReducer(
     })),
     on(getAllEmployeeFailure, (state, {errorMessage}) => ({
         ...state,
+        error: errorMessage
+    })),
+    on(getByIdEmployeeSuccess, (state, {employee}) => ({
+        ...state,
+        error: null,
+        employee: employee
+    })),
+    on(getByIdEmployeeFailure, (state, {errorMessage}) => ({
+        ...state,
+        employee: null,
         error: errorMessage
     }))
 )

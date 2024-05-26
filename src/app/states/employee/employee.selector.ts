@@ -17,3 +17,8 @@ export const selectHistoryEmployee = createSelector(
     selectEmployeeFeature,
     (state: EmployeeState) => state.history
 )
+
+export const selectEmployee = createSelector(
+    selectEmployeeFeature,
+    (state: EmployeeState) => state.employee
+)
